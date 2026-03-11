@@ -5,13 +5,14 @@ import Reveal from "@/components/Reveal";
 import InfrastructureGlobe from "@/components/InfrastructureGlobeDynamic";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import Stores24HomePage from "./stores24/page";
 
 export default async function Home() {
   const host = (await headers()).get("host")?.toLowerCase() ?? "";
 
   // Ensure stores24 subdomain root never renders the main BlueVolt landing page.
   if (host.startsWith("stores24.")) {
-    redirect("/stores24");
+    return <Stores24HomePage />;
   }
 
   // Serve in-project static apps on their product subdomains.
