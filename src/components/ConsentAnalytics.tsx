@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { readCookieConsent, type CookieConsent } from "@/lib/cookies/consent";
 
 declare global {
@@ -107,7 +107,6 @@ function trackPageView(measurementId: string, pagePath: string) {
 
 export default function ConsentAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [consent, setConsent] = useState<CookieConsent | null>(null);
 
   useEffect(() => {
@@ -135,18 +134,13 @@ export default function ConsentAnalytics() {
     disableGoogleAnalytics(GA_ID);
   }, [consent]);
 
-  const currentPath = useMemo(() => {
-    const query = searchParams.toString();
-    return query ? `${pathname}?${query}` : pathname;
-  }, [pathname, searchParams]);
-
   useEffect(() => {
     if (!consent?.analytics) {
       return;
     }
 
-    trackPageView(GA_ID, currentPath);
-  }, [consent, currentPath]);
+    trackPageView(GA_ID, pathname);
+  }, [consent, pathname]);
 
   return null;
 }
