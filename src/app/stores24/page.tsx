@@ -1,8 +1,6 @@
 ﻿"use client";
 
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
 import Link from 'next/link';
 import {
@@ -42,7 +40,6 @@ const trustStats = [
 export default function Stores24HomePage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column' }}>
-      <Navbar />
 
       {/* Hero Section */}
       <section className="product-hero-section" style={{ position: 'relative', overflow: 'hidden', padding: '10rem 2rem 8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -239,7 +236,6 @@ export default function Stores24HomePage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }
