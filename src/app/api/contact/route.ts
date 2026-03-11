@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const MAX_MESSAGE_LENGTH = 2000;
 
@@ -52,6 +52,15 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
+
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        { success: false, error: "Server configuration is incomplete." },
+        { status: 500 },
+      );
+    }
+
+    const { prisma } = await import("@/lib/prisma");
 
     await prisma.contactInquiry.create({
       data: {
