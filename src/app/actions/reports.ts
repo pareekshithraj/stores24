@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 type FinancialSaleRow = {
     bill_number: string;
